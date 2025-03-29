@@ -6,59 +6,85 @@
     <title>Login</title>
     <style>
         body {
-            background-color: #0a2e5c;
+            background-color: #1e3a57;
             color: #ffffff;
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-wrapper {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
         }
         .login-container {
-            background-color: #1a4b8c;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            width: 320px;
+            background-color: #2c5282;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
         }
-        .login-container h2 {
-            margin-bottom: 20px;
+        .login-header {
+            background-color: #3b6fb6;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #4a7dbd;
+        }
+        .login-header h2 {
+            margin: 0;
             font-size: 24px;
+            letter-spacing: 1px;
+        }
+        .login-body {
+            padding: 25px;
         }
         .error-message {
-            color: #ff4d4d;
-            margin-bottom: 10px;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-align: center;
         }
         input[type="text"], input[type="password"] {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #4a7dbd;
+            border-radius: 4px;
+            background-color: #1e3a57;
+            color: white;
+            box-sizing: border-box;
+        }
+        input::placeholder {
+            color: #a0aec0;
         }
         .login-btn {
-            background-color: #2e6ad1;
+            background-color: #4299e1;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px;
             width: 100%;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
-            margin-bottom: 15px;
+            font-weight: bold;
+            margin-top: 10px;
         }
         .login-btn:hover {
-            background-color: #1e4c9e;
+            background-color: #3182ce;
         }
         .signup-link {
-            margin-top: 15px;
+            margin-top: 20px;
+            text-align: center;
             font-size: 14px;
+            color: #cbd5e0;
         }
         .signup-link a {
-            color: #6db0ff;
+            color: #90cdf4;
             text-decoration: none;
+            font-weight: bold;
         }
         .signup-link a:hover {
             text-decoration: underline;
@@ -66,25 +92,30 @@
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
+    <div class="login-wrapper">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>Login</h2>
+            </div>
+            <div class="login-body">
+                <!-- Afficher les messages flash -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <p class="error-message">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
 
-        <!-- Display Flash Messages -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <p class="error-message">{{ message }}</p>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
-        <form method="POST" action="{{ url_for('auth_bp.login') }}">
-            <input type="text" name='username' placeholder="Username ..." required>
-            <input type="password" name='password' placeholder="Password .." required>
-            <button class="login-btn" type="submit">Login</button>
-        </form>
-        <div class="signup-link">
-            Don't have an account? <a href="{{ url_for('auth_bp.signup') }}">Sign up</a>
+                <form method="POST" action="{{ url_for('auth_bp.login') }}">
+                    <input type="text" name='username' placeholder="Username ..." required>
+                    <input type="password" name='password' placeholder="Password .." required>
+                    <button class="login-btn" type="submit">Login</button>
+                </form>
+                <div class="signup-link">
+                    Pas encore de compte? <a href="{{ url_for('auth_bp.signup') }}">Créer un compte</a>
+                </div>
+            </div>
         </div>
     </div>
 </body>
