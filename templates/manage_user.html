@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0a2e5c;
+            color: #fff;
+            text-align: center;
+            margin: 10px;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1a4b8c;
+            padding: 15px 20px;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            color: white;
+        }
+
+        .logout-btn {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .logout-btn:hover {
+            background-color: #cc0000;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #1a4b8c;
+        }
+
+        th {
+            background-color: #1a4b8c;
+        }
+
+        button {
+            background-color: #2e6ad1;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1e4c9e;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #0a2e5c;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
+
+        .close {
+            cursor: pointer;
+            color: red;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h2>User Dashboard</h2>
+        <a href="{{ url_for('auth_bp.logout') }}">
+            <button class="logout-btn">Logout</button>
+        </a>
+    </div>
+
+    <h1>Manage Users</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                <button onclick="openModal({{ user.id }}, '{{ user.username }}', '{{ user.email }}')">Edit</button>
+            </td>
+        </tr>
+    </table>
+
+    <!-- Edit User Modal -->
+    <div id="editModal" class="modal">
+        <span class="close" onclick="closeModal()">X</span>
+        <h2>Edit User</h2>
+        <form id="editForm" method="POST" action="{{ url_for('user_bp.edit_user') }}">
+            <input type="hidden" id="userId" name="user_id">
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+
+    <script>
+        function openModal(id, username, email) {
+            document.getElementById('editModal').style.display = 'block';
+            document.getElementById('userId').value = id;
+            document.getElementById('username').value = username;
+            document.getElementById('email').value = email;
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
+
