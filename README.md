@@ -92,8 +92,8 @@ CREATE DATABASE flask;
 Créez un fichier `.env` à la racine du projet avec le contenu suivant :
 
 ```plaintext
-SECRET_KEY=73d5128e51b5d4088b7b779ce6e39349d08a4980830cd3659904a3e4c390d691
-SQLALCHEMY_DATABASE_URI=mysql+pymysql://root:VOTRE_MOT_DE_PASSE@localhost/flask
+SECRET_KEY=
+SQLALCHEMY_DATABASE_URI=
 ```
 
 Remplacez `VOTRE_MOT_DE_PASSE` par votre mot de passe MySQL.
