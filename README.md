@@ -30,8 +30,8 @@ Ce projet est une application web de gestion d'utilisateurs développée avec Fl
 Téléchargez et décompressez le projet ou clonez-le depuis le dépôt Git.
 
 ```shellscript
-git clone https://github.com/votre-nom/gestion-utilisateurs.git
-cd gestion-utilisateurs
+git clone https://github.com/msboufanzi/projectpython.git
+cd projectpython
 ```
 
 ### 2. Créer un environnement virtuel Python
